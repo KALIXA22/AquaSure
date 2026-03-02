@@ -1,25 +1,30 @@
-import { Droplets, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { Droplets, Mail, Lock, User, Building, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-export function LoginView() {
+export function RegisterView() {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [organization, setOrganization] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { register } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (email && password) {
-      login(email, password);
-      navigate("/");
+    if (password === confirmPassword && termsAccepted && fullName && email && organization) {
+      register(fullName, email, password, organization);
+      // Redirect to login page after successful registration
+      navigate("/login");
     }
   };
 
-  const handleSwitchToSignup = () => {
-    navigate("/signup");
+  const handleSwitchToLogin = () => {
+    navigate("/login");
   };
 
   return (
@@ -76,13 +81,27 @@ export function LoginView() {
                   <Droplets size={28} className="text-white" />
                 </div>
                 <h1 className="text-2xl font-bold text-white mb-1">AquaSure</h1>
-                <p className="text-cyan-300 text-xs">Sign in to continue</p>
+                <p className="text-cyan-300 text-xs">Create your account</p>
               </div>
 
-              <h2 className="text-2xl font-bold text-white mb-1">Sign In</h2>
+              <h2 className="text-2xl font-bold text-white mb-1">Create Account</h2>
               <p className="text-gray-300 text-sm mb-8">Enter your credentials to access your account</p>
 
               <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="relative group">
+                  <label className="block text-sm font-medium text-gray-200 mb-2">Full Name</label>
+                  <div className="relative">
+                    < User className="absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-400 opacity-60" size={18} />
+                    <input
+                      type="text"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="Your Full Name"
+                      className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 group-hover:border-cyan-400/50 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300"
+                      required
+                    />
+                  </div>
+                </div>
                 <div className="relative group">
                   <label className="block text-sm font-medium text-gray-200 mb-2">Email Address</label>
                   <div className="relative">
@@ -92,6 +111,20 @@ export function LoginView() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="your@email.com"
+                      className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 group-hover:border-cyan-400/50 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="relative group">
+                  <label className="block text-sm font-medium text-gray-200 mb-2">Organization</label>
+                  <div className="relative">
+                    <Building className="absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-400 opacity-60" size={18} />
+                    <input
+                      type="text"
+                      value={organization}
+                      onChange={(e) => setOrganization(e.target.value)}
+                      placeholder="Your Organization"
                       className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/20 group-hover:border-cyan-400/50 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300"
                       required
                     />
@@ -118,16 +151,44 @@ export function LoginView() {
                     </button>
                   </div>
                 </div>
-                <div className="text-right">
-                  <button type="button" className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors">
-                    Forgot password?
-                  </button>
+                 <div className="relative group">
+                  <label className="block text-sm font-medium text-gray-200 mb-2">Confirm Password</label>
+                  <div className="relative">
+                    <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-400 opacity-60" size={18} />
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={confirmPassword}
+
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder="••••••••"
+                      className="w-full pl-12 pr-12 py-3 bg-white/5 border border-white/20 group-hover:border-cyan-400/50 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-cyan-400 hover:text-cyan-300 transition-colors"
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
+                </div>
+                <div className="text-left">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={termsAccepted}
+                      onChange={(e) => setTermsAccepted(e.target.checked)}
+                      className="w-4 h-4 text-cyan-500 bg-white/5 border border-white/20 rounded focus:ring-cyan-500 focus:ring-2"
+                    />
+                    <span className="text-sm text-gray-300">I agree to the Terms and Conditions and Privacy Policy</span>
+                  </label>
                 </div>
                 <button
                   type="submit"
                   className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-xl hover:from-cyan-600 hover:to-blue-700 shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105 active:scale-95"
                 >
-                  Sign In
+                  Create Account
                 </button>
               </form>
 
@@ -138,13 +199,13 @@ export function LoginView() {
               </div>
 
               <p className="text-center text-sm text-gray-300">
-                Don't have an account?{" "}
+                Already have an account?{" "}
                 <button
                   type="button"
-                  onClick={handleSwitchToSignup}
+                  onClick={handleSwitchToLogin}
                   className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
                 >
-                  Create one
+                  Sign in
                 </button>
               </p>
             </div>
