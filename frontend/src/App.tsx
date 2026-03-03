@@ -25,12 +25,10 @@ function App() {
   const [activeView, setActiveView] = useState("dashboard");
   const [notificationCount, setNotificationCount] = useState(3);
 
-const handleLogin = (email: string, password: string, role?: UserRole) => {
-  console.log("Logging in as:", role); // 🔍 debug
-  if (email && password) {
-    const name = email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1);
-    setUserName(name);
-    setUserRole(role || "admin");
+const handleLogin = (userName: string, email: string, password: string, role: UserRole) => {
+  if (userName && email && password) {
+    setUserName(userName);  
+    setUserRole(role);      
     setActiveView("dashboard");
     setIsAuthenticated(true);
   }

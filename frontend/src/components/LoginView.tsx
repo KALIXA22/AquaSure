@@ -1,14 +1,15 @@
-import { Droplets, Mail, Lock, Eye, EyeOff, ShieldCheck } from "lucide-react";
+import { Droplets, Mail, Lock, Eye, EyeOff, ShieldCheck,User } from "lucide-react";
 import { useState } from "react";
 
 export type UserRole = "officer" | "operator" | "technician" | "researcher" | "admin";
 
 interface LoginViewProps {
-  onLogin: (email: string, password: string, role?: UserRole) => void;
+  onLogin: (userName:string,email: string, password: string, role?: UserRole) => void;
   onSwitchToSignup: () => void;
 }
 
 export function LoginView({ onLogin, onSwitchToSignup }: LoginViewProps) {
+  const [userName,setUserName]=useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -17,8 +18,8 @@ export function LoginView({ onLogin, onSwitchToSignup }: LoginViewProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email && password) {
-      onLogin(email, password, selectedRole);
+    if (userName && email && password) {
+      onLogin(userName,email, password, selectedRole);
     }
   };
 
@@ -88,6 +89,20 @@ export function LoginView({ onLogin, onSwitchToSignup }: LoginViewProps) {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
+               <div>
+                <label className="mb-2 block text-sm font-medium text-white">Username</label>
+                <div className="relative">
+                  <User className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#9dd8e3]" size={18} />
+                  <input
+                    type="text"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    placeholder="kaliza_admin"
+                    className="w-full rounded-xl border border-white/25 bg-white/15 py-3 pl-10 pr-4 text-white placeholder:text-white/60 outline-none transition focus:border-[#BFE9F0] focus:ring-2 focus:ring-[#BFE9F0]/40"
+                    required
+                  />
+                </div>
+              </div>
               <div>
                 <label className="mb-2 block text-sm font-medium text-white">Email Address</label>
                 <div className="relative">

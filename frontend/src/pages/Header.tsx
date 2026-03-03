@@ -92,7 +92,6 @@ export function Header({ onNotificationClick, notificationCount, userName = "Adm
           </div>
           <div className="hidden md:block text-left">
           <p className="text-sm font-semibold text-gray-700">{userName}</p>
-         
         </div>
     </button>
         </div>

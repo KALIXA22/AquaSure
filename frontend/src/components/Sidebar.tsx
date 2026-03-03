@@ -27,11 +27,7 @@ export function Sidebar({ activeView, onViewChange, onLogout, userName = "Admin"
     if (userRole === "officer") {
       return [
         { icon: Home, label: "Command Center", id: "dashboard" },
-       // { icon: MapPin, label: "All Stations", id: "officer-stations" },
-        //{ icon: AlertTriangle, label: "Active Alerts", id: "officer-alerts" },
-       // { icon: TrendingUp, label: "Pollution Events", id: "officer-events" },
-       // { icon: BarChart3, label: "Trend Analysis", id: "officer-trends" },
-       // { icon: FileText, label: "Reports", id: "officer-reports" },
+      
       ];
     }
 
@@ -39,11 +35,7 @@ export function Sidebar({ activeView, onViewChange, onLogout, userName = "Admin"
     if (userRole === "operator") {
       return [
         { icon: Home, label: "My Station", id: "dashboard" },
-       // { icon: Gauge, label: "Compliance Status", id: "operator-compliance" },
-       // { icon: Activity, label: "Sensor Readings", id: "operator-sensors" },
-        //{ icon: AlertTriangle, label: "Alert History", id: "operator-alerts" },
-       // { icon: BarChart3, label: "Station Graph", id: "operator-graph" },
-       // { icon: Settings, label: "Valve Control", id: "operator-valve" },
+     
       ];
     }
 
@@ -51,11 +43,7 @@ export function Sidebar({ activeView, onViewChange, onLogout, userName = "Admin"
     if (userRole === "technician") {
       return [
         { icon: Home, label: "Maintenance Hub", id: "dashboard" },
-       // { icon: Activity, label: "Sensor Health", id: "tech-sensors" },
-       // { icon: Wrench, label: "Calibration", id: "tech-calibration" },
-       // { icon: Settings, label: "System Controls", id: "tech-controls" },
-       //  { icon: FileText, label: "Maintenance Logs", id: "tech-logs" },
-       // { icon: AlertTriangle, label: "Diagnostics", id: "tech-diagnostics" },
+    
       ];
     }
 
@@ -63,11 +51,7 @@ export function Sidebar({ activeView, onViewChange, onLogout, userName = "Admin"
     if (userRole === "researcher") {
       return [
         { icon: Home, label: "Data Overview", id: "dashboard" },
-       // { icon: Database, label: "Historical Data", id: "researcher-data" },
-       // { icon: TrendingUp, label: "Trend Analysis", id: "researcher-trends" },
-       // { icon: BarChart3, label: "Multi-Parameter", id: "researcher-multi" },
-       // { icon: FileText, label: "Export Data", id: "researcher-export" },
-       // { icon: MapPin, label: "Station Comparison", id: "researcher-compare" },
+      
       ];
     }
 
@@ -103,7 +87,6 @@ export function Sidebar({ activeView, onViewChange, onLogout, userName = "Admin"
 
   return (
     <div className="w-64 h-screen bg-gradient-to-b from-[#0A2A2F] to-[#1F7A8C]/20 backdrop-blur-xl border-r border-white/10 text-white flex flex-col">
-      {/* Logo */}
       <div className="p-6 border-b border-white/10">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gradient-to-br from-[#1F7A8C] to-[#BFE9F0] rounded-lg flex items-center justify-center shadow-lg">
