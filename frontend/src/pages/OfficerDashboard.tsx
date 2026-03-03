@@ -16,6 +16,42 @@ export function OfficerDashboard() {
     }));
     setChartData(data);
   }, []);
+  const handleDownloadReport = () => {
+  let csvContent = "data:text/csv;charset=utf-8,";
+
+  // Monitoring Stations
+  csvContent += "Monitoring Stations\n";
+  csvContent += "Name,Status,Active Alerts,Latitude,Longitude\n";
+  monitoringStations.forEach(station => {
+    csvContent += `${station.name},${station.status},${station.alerts},${station.lat},${station.lon}\n`;
+  });
+
+  csvContent += "\nPollution Events\n";
+  csvContent += "Station,Event,Severity,Time\n";
+  pollutionEvents.forEach(event => {
+    csvContent += `${event.station},${event.event},${event.severity},${event.time}\n`;
+  });
+
+  csvContent += "\nReal-Time Alerts\n";
+  csvContent += "Message,Priority,Time\n";
+  realtimeAlerts.forEach(alert => {
+    csvContent += `${alert.message},${alert.priority},${alert.time}\n`;
+  });
+
+  csvContent += "\nSensor Data (24 Hour Trend)\n";
+  csvContent += "Time,pH,Turbidity,Temperature,Conductivity\n";
+  chartData.forEach(data => {
+    csvContent += `${data.time},${data.pH},${data.turbidity},${data.temperature},${data.conductivity}\n`;
+  });
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "Environmental_Report.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
   const monitoringStations = [
     { id: 1, name: "Station A - Industrial Zone", status: "critical", alerts: 3, lat: "40.7128", lon: "-74.0060" },
@@ -45,7 +81,9 @@ export function OfficerDashboard() {
           <h1 className="text-2xl font-bold text-[#0A2A2F]">Environmental Officer Dashboard</h1>
           <p className="text-sm text-gray-600 mt-1">National Environmental Command Center</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#1F7A8C] to-[#BFE9F0] text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200">
+        <button 
+        onClick={handleDownloadReport}
+        className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#1F7A8C] to-[#BFE9F0] text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200">
           <Download size={18} />
           Download Report
         </button>
