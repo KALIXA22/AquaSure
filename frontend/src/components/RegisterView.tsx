@@ -48,17 +48,13 @@ export function RegisterView({ onSignup, onSwitchToLogin }: SignupViewProps) {
         }}></div>
       </div>
 
-      {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute w-72 h-72 bg-[#BFE9F0] rounded-full blur-3xl opacity-20 -top-20 -left-20 animate-pulse"></div>
         <div className="absolute w-96 h-96 bg-[#1F7A8C] rounded-full blur-3xl opacity-20 -bottom-32 -right-32 animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
 
-      {/* Signup Card */}
       <div className="relative w-full max-w-md">
-        {/* Glassmorphism Card */}
         <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl shadow-2xl p-8">
-          {/* Logo */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#1F7A8C] to-[#BFE9F0] rounded-2xl shadow-lg mb-4">
               <Droplets size={32} className="text-white" />
@@ -84,8 +80,6 @@ export function RegisterView({ onSignup, onSwitchToLogin }: SignupViewProps) {
                 />
               </div>
             </div>
-
-            {/* Email Input */}
             <div>
               <label className="block text-sm font-medium text-white mb-2">Email Address</label>
               <div className="relative">
@@ -117,12 +111,12 @@ export function RegisterView({ onSignup, onSwitchToLogin }: SignupViewProps) {
               </div>
             </div>
 
-            {/* Role Selection */}
             <div>
               <label className="block text-sm font-medium text-white mb-2">Role</label>
               <div className="relative">
                 <ShieldCheck className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#BFE9F0]" size={20} />
-                <select
+                
+                <select 
                   value={formData.role}
                   onChange={(e) => setFormData({ ...formData, role: e.target.value as UserRole })}
                   className="w-full pl-11 pr-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white focus:outline-none focus:border-[#BFE9F0] focus:ring-2 focus:ring-[#BFE9F0]/50 transition-all appearance-none cursor-pointer"
@@ -134,6 +128,7 @@ export function RegisterView({ onSignup, onSwitchToLogin }: SignupViewProps) {
                   <option value="researcher" className="bg-[#0A2A2F] text-white">Researcher</option>
                   <option value="admin" className="bg-[#0A2A2F] text-white">Administrator</option>
                 </select>
+               
               </div>
             </div>
 

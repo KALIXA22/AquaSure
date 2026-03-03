@@ -24,21 +24,22 @@ function App() {
   const [activeView, setActiveView] = useState("dashboard");
   const [notificationCount, setNotificationCount] = useState(3);
 
-  const handleLogin = (email: string, password: string, role?: UserRole) => {
-    // Demo authentication - accepts any credentials
-    if (email && password) {
-      const name = email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1);
-      setUserName(name);
-      setUserRole(role || "admin");
-      setIsAuthenticated(true);
-    }
-  };
+const handleLogin = (email: string, password: string, role?: UserRole) => {
+  console.log("Logging in as:", role); // 🔍 debug
+  if (email && password) {
+    const name = email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1);
+    setUserName(name);
+    setUserRole(role || "admin");
+    setActiveView("dashboard");
+    setIsAuthenticated(true);
+  }
+};
 
   const handleSignup = (data: { name: string; email: string; password: string; organization: string; role: UserRole }) => {
-    // Demo signup - automatically logs in
-    setUserName(data.name);
-    setUserRole(data.role);
-    setIsAuthenticated(true);
+    console.log("Signing up as:", data.role); // 🔍 debug
+    if (data.name && data.email && data.password && data.organization) {
+      setAuthView("login");
+    }
   };
 
   const handleLogout = () => {
@@ -55,7 +56,6 @@ function App() {
   };
 
   const renderView = () => {
-    // Role-specific dashboards
     if (activeView === "dashboard") {
       switch (userRole) {
         case "officer":
@@ -106,7 +106,6 @@ function App() {
     }
   };
 
-  // Show authentication views if not authenticated
   if (!isAuthenticated) {
     if (authView === "login") {
       return (
@@ -125,10 +124,8 @@ function App() {
     }
   }
 
-  // Main dashboard view
   return (
     <div className="flex h-screen bg-gradient-to-br from-[#F4FBFC] to-[#E0F7FA]">
-      {/* Sidebar */}
       <Sidebar 
         activeView={activeView} 
         onViewChange={setActiveView}
@@ -137,9 +134,9 @@ function App() {
         userRole={userRole}
       />
 
-      {/* Main Content */}
+
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header */}
+
         <Header 
           onNotificationClick={handleNotificationClick}
           notificationCount={notificationCount}
@@ -147,7 +144,7 @@ function App() {
           userRole={userRole}
         />
 
-        {/* Dashboard Content */}
+
         <main className="flex-1 overflow-y-auto">
           {renderView()}
         </main>

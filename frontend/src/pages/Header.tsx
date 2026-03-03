@@ -7,6 +7,7 @@ interface HeaderProps {
   userName?: string;
 }
 
+
 export function Header({ onNotificationClick, notificationCount, userName = "Admin" }: HeaderProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -20,7 +21,6 @@ export function Header({ onNotificationClick, notificationCount, userName = "Adm
     e.preventDefault();
     if (searchQuery.trim()) {
       alert(`Searching for: ${searchQuery}`);
-      // In a real app, this would trigger a search function
     }
   };
 
@@ -35,7 +35,6 @@ export function Header({ onNotificationClick, notificationCount, userName = "Adm
   return (
     <header className="backdrop-blur-xl bg-white/70 border-b border-white/20 shadow-sm">
       <div className="flex items-center justify-between px-8 py-4">
-        {/* Search */}
         <div className="flex-1 max-w-xl">
           <form onSubmit={handleSearch}>
             <div className="relative">
@@ -87,15 +86,15 @@ export function Header({ onNotificationClick, notificationCount, userName = "Adm
           </button>
 
           {/* User */}
-          <button className="flex items-center gap-3 px-3 py-2 hover:bg-white/50 backdrop-blur-sm rounded-xl transition-all border border-transparent hover:border-white/30">
-            <div className="w-9 h-9 bg-gradient-to-br from-[#1F7A8C] to-[#BFE9F0] rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-sm">{userName.charAt(0)}</span>
-            </div>
-            <div className="hidden md:block text-left">
-              <p className="text-sm font-semibold text-gray-700">{userName}</p>
-              <p className="text-xs text-gray-500">Administrator</p>
-            </div>
-          </button>
+        <button className="flex items-center gap-3 px-3 py-2 hover:bg-white/50 backdrop-blur-sm rounded-xl transition-all border border-transparent hover:border-white/30">
+          <div className="w-9 h-9 bg-gradient-to-br from-[#1F7A8C] to-[#BFE9F0] rounded-full flex items-center justify-center shadow-lg">
+            <span className="text-white font-bold text-sm">{userName?.charAt(0)}</span>
+          </div>
+          <div className="hidden md:block text-left">
+          <p className="text-sm font-semibold text-gray-700">{userName}</p>
+         
+        </div>
+    </button>
         </div>
       </div>
     </header>
