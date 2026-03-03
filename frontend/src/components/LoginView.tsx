@@ -60,7 +60,7 @@ export function LoginView({ onLogin, onSwitchToSignup }: LoginViewProps) {
           <div className="mt-auto space-y-4">
             <div className="rounded-2xl border border-white/10 bg-[#0d3b45]/70 p-4 backdrop-blur-sm">
               <p className="text-xs uppercase tracking-wider text-[#9fdce7]">Quick tip</p>
-              <p className="mt-2 text-sm text-[#d7f1f5]">Select your role first, then sign in.</p>
+              <p className="mt-2 text-sm text-[#d7f1f5]">Select your role first, then sign up.</p>
             </div>
           </div>
         </aside>
