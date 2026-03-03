@@ -9,6 +9,7 @@ import { SensorsView } from "./pages/SensorsView";
 import { AnalyticsView } from "./pages/AnalyticsView";
 import { AlertsView } from "./pages/AlertsView";
 import { SettingsView } from "./pages/SettingsView";
+import { UserManagementView } from "./pages/UserManagementView";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
       { path: "analytics", element: <AnalyticsView /> },
       { path: "alerts", element: <AlertsView /> },
       { path: "settings", element: <SettingsView /> },
+      { path: "user-management", element: <UserManagementView /> },
     ],
   },
 ]);

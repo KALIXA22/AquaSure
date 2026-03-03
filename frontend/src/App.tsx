@@ -13,6 +13,7 @@ import { OfficerDashboard } from "./pages/OfficerDashboard";
 import { OperatorDashboard } from "./pages/OperatorDashboard";
 import { TechnicianDashboard } from "./pages/TechnicianDashboard";
 import { ResearcherDashboard } from "./pages/ResearcherDashboard";
+import { UserManagementView } from "./pages/UserManagementView";
 
 
 
@@ -86,6 +87,8 @@ const handleLogin = (email: string, password: string, role?: UserRole) => {
           return <AlertsView />;
         case "settings":
           return <SettingsView />;
+        case "user-management":
+          return <UserManagementView/>;
         default:
           return <DashboardView />;
       }
